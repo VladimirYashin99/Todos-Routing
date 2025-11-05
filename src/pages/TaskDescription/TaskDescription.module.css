@@ -1,0 +1,79 @@
+.title {
+	font-size: 28px;
+	font-weight: 600;
+	color: #000000;
+	text-align: center;
+	margin: 20px 0;
+	letter-spacing: 1px;
+}
+.containerTodosTasks {
+	font-size: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #f7f7f7;
+	padding: 12px 16px;
+	border-radius: 8px;
+	transition:
+		background-color 0.2s ease,
+		transform 0.2s ease;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+	cursor: default;
+}
+
+.containerTodosTasks:hover {
+	background-color: #ebf4ff;
+	transform: translateY(-2px);
+}
+
+.itemCheckbox {
+	width: 18px;
+	height: 18px;
+	margin-right: 12px;
+	cursor: pointer;
+	accent-color: #0193f5;
+}
+
+.containerCheckboxAndText {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex: 1;
+}
+
+.itemCompleted {
+	background-color: #e8f5e9;
+}
+
+.itemCompleted span {
+	text-decoration: line-through;
+	color: #888;
+}
+
+.taskText {
+	flex: 1;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	white-space: normal;
+	line-height: 1.4;
+}
+
+.inputUpdateTask {
+	flex: 1;
+	font-size: 20px;
+	padding: 4px 8px;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+
+.deleteButton {
+	margin-left: 10px;
+}
+
+.goBackBtn {
+	margin: 10px auto;
+	width: 128px;
+	height: 31px;
+}
