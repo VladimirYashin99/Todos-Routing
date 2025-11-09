@@ -1,5 +1,5 @@
 import { useState } from 'react';
-export const useSortTodosText = ( setTodos, originalTodos) => {
+export const useSortTodosText = (setTodos, originalTodos) => {
 	const [isSortedTodosFlag, setIsSortedTodosFlag] = useState(false);
 
 	const sortTodosText = (todos) => {
@@ -17,5 +17,5 @@ export const useSortTodosText = ( setTodos, originalTodos) => {
 		}
 		setIsSortedTodosFlag(!isSortedTodosFlag);
 	};
-	return { sortTodosText, isSortedTodosFlag, setIsSortedTodosFlag};
+	return { sortTodosText, isSortedTodosFlag, setIsSortedTodosFlag };
 };

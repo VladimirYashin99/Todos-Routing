@@ -9,7 +9,6 @@ export const useRequestGetTodos = (refreshTodosFlag, setOriginalTodos, setTodos)
 				return loadedData.json();
 			})
 			.then((loadedTodos) => {
-				console.log(loadedTodos);
 				setTodos(loadedTodos);
 				setOriginalTodos(loadedTodos);
 			})

@@ -1,28 +1,56 @@
 import { useNavigate, useParams, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { Button } from '../../components/common';
 import styles from './TaskDescription.module.css';
-
-export const TaskDescription = ({
-	todos,
-	editId,
-	editText,
-	setEditText,
-	onClickUpdateTask,
-	requestUpdateTask,
-	requestToggleCheckbox,
-	requestDeleteTask,
-}) => {
-	const { id } = useParams();
-	const task = todos.find((todo) => Number(id) === todo.id);
+import {
+	useRequestDeleteTask,
+	useRequestToggleCheckbox,
+	useRequestUpdateTask,
+} from '../../hooks';
+export const TaskDescription = () => {
+	const [task, setTask] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
 	const navigate = useNavigate();
-	const onClickGoBack = () => {
-		navigate(-1);
-	};
+	const { id } = useParams();
+
+	const { requestDeleteTask } = useRequestDeleteTask(() => {
+		navigate('/');
+	});
+	const { requestToggleCheckbox } = useRequestToggleCheckbox(setTask);
+	const { requestUpdateTask, editId, setEditId, editText, setEditText } =
+		useRequestUpdateTask(setTask);
+
+	useEffect(() => {
+		fetch(`http://localhost:3004/todos/${id}`)
+			.then((loadedData) => {
+				if (!loadedData.ok) throw new Error('Ошибка загрузки задачи с сервера');
+				return loadedData.json();
+			})
+			.then((dataTask) => {
+				setTask(dataTask);
+			})
+			.catch((error) => {
+				console.error(error);
+			})
+			.finally(() => setIsLoading(false));
+	}, [id]);
+
+	if (isLoading) {
+		return <div className={styles.loading}>Загрузка...</div>;
+	}
 
 	if (!task) {
 		return <Navigate to="/404" replace />;
 	}
 
+	const onClickGoBack = () => {
+		navigate(-1);
+	};
+
+	const onClickUpdateTask = () => {
+		setEditId(task.id);
+		setEditText(task.title);
+	};
 	return (
 		<>
 			<h3 className={styles.title}>Описание дела</h3>
@@ -55,16 +83,12 @@ export const TaskDescription = ({
 						<span className={styles.taskText}>{task.title}</span>
 					)}
 				</div>
-				<Button onClick={() => onClickUpdateTask(task.id, task.title)}>
-					Изменить текст 
-
-
-				</Button>
+				<Button onClick={onClickUpdateTask}>Изменить текст</Button>
 				<Button
 					className={styles.deleteButton}
-					onClick={() => {requestDeleteTask(task.id, task.title)
-						navigate('/')}
-					}
+					onClick={() => {
+						requestDeleteTask(task.id);
+					}}
 				>
 					Удалить задачу
 				</Button>

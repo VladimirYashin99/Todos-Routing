@@ -1,5 +1,5 @@
 import { useState } from 'react';
-export const useRequestUpdateTask = (setTodos, setOriginalTodos) => {
+export const useRequestUpdateTask = (setTask) => {
 	const [editId, setEditId] = useState(null);
 	const [editText, setEditText] = useState('');
 	const requestUpdateTask = (id) => {
@@ -17,13 +17,7 @@ export const useRequestUpdateTask = (setTodos, setOriginalTodos) => {
 				return response.json();
 			})
 			.then((updatedTodo) => {
-				setTodos((todos) =>
-					todos.map((todo) => (todo.id === id ? updatedTodo : todo)),
-				);
-
-				setOriginalTodos((todos) =>
-					todos.map((todo) => (todo.id === id ? updatedTodo : todo)),
-				);
+				setTask(updatedTodo)
 				setEditId(null);
 				setEditText('');
 			})

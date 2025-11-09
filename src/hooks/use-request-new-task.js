@@ -23,7 +23,7 @@ export const useRequestNewTask = (refreshTodos) => {
 				setNewTaskCreating('');
 				refreshTodos();
 			})
-			.catch((error) => console.error('Ошибка при добавлении задач:', error))
+			.catch((error) => console.error('Ошибка при добавлении задач:', error));
 	};
 
 	return { newTaskCreating, setNewTaskCreating, requestNewTask };

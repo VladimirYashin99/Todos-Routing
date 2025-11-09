@@ -1,4 +1,4 @@
-export const useRequestToggleCheckbox = ( setTodos) => {
+export const useRequestToggleCheckbox = (setTask) => {
 	const requestToggleCheckbox = (id, newStatus) => {
 		fetch(`http://localhost:3004/todos/${id}`, {
 			method: 'PATCH',
@@ -11,12 +11,10 @@ export const useRequestToggleCheckbox = ( setTodos) => {
 				if (!response.ok) throw new Error('Ошибка при обновлении статуса задачи');
 				return response.json();
 			})
-			.then((updatedCheckbox) => {
-				setTodos((todos) =>
-					todos.map((todo) => (todo.id === id ? updatedCheckbox : todo)),
-				);
-			})
-			.catch((error) => console.error('Ошибка при обновлении статуса задачи:', error))
+			.then((updatedCheckbox) => setTask(updatedCheckbox))
+			.catch((error) =>
+				console.error('Ошибка при обновлении статуса задачи:', error),
+			);
 	};
 	return { requestToggleCheckbox };
 };
